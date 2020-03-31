@@ -12,12 +12,13 @@ import (
 
 func main() {
 	l := log.New(os.Stdout, "product-api", log.LstdFlags)
-	hh := handlers.NewHello(l)
-	gh := handlers.NewGoodBye(l)
-	sm := http.NewServeMux()
 
-	sm.Handle("/", hh)
-	sm.Handle("goodbye", gh)
+	// create the handlers
+	ph := handlers.NewProducts(l)
+
+	// create a new serve mux and create a new route
+	sm := http.NewServeMux()
+	sm.Handle("/", ph)
 
 	s := &http.Server{
 		Addr:         ":9090",
